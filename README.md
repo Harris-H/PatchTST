@@ -1,5 +1,19 @@
 # PatchTST (ICLR 2023)
 
+## 1 开始
+
+监督学习和自我监督学习的代码分为 2 个文件夹： `PatchTST_supervised` 和 `PatchTST_self_supervised`
+
+### 1.1 监督学习
+
+安装依赖包：
+
+```sh
+pip install -r requirements.txt
+```
+
+
+
 ### This is an offical implementation of PatchTST: [A Time Series is Worth 64 Words: Long-term Forecasting with Transformers](https://arxiv.org/abs/2211.14730). 
 
 :triangular_flag_on_post: Our model has been included in [GluonTS](https://github.com/awslabs/gluonts). Special thanks to the contributor @[kashif](https://github.com/kashif)!
@@ -73,7 +87,7 @@ You can adjust the hyperparameters based on your needs (e.g. different patch len
 python patchtst_pretrain.py --dset ettm1 --mask_ratio 0.4
 ```
 The model will be saved to the saved_model folder for the downstream tasks. There are several other parameters can be set in the patchtst_pretrain.py script.
- 
+
  3. Fine-tuning: The script patchtst_finetune.py is for fine-tuning step. Either linear_probing or fine-tune the entire network can be applied.
 ```
 python patchtst_finetune.py --dset ettm1 --pretrained_model <model_name>
