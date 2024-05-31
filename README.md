@@ -307,22 +307,9 @@ mse:0.1951362043619156, mae:0.2412061244249344, rse:0.5811452269554138
 
 
 
-## Getting Started
 
-We seperate our codes for supervised learning and self-supervised learning into 2 folders: ```PatchTST_supervised``` and ```PatchTST_self_supervised```. Please choose the one that you want to work with.
 
-### Supervised Learning
 
-1. Install requirements. ```pip install -r requirements.txt```
-
-2. Download data. You can download all the datasets from [Autoformer](https://drive.google.com/drive/folders/1ZOYpTUa82_jCcxIdTmyr0LXQfvaM9vIy). Create a seperate folder ```./dataset``` and put all the csv files in the directory.
-
-3. Training. All the scripts are in the directory ```./scripts/PatchTST```. The default model is PatchTST/42. For example, if you want to get the multivariate forecasting results for weather dataset, just run the following command, and you can open ```./result.txt``` to see the results once the training is done:
-```
-sh ./scripts/PatchTST/weather.sh
-```
-
-You can adjust the hyperparameters based on your needs (e.g. different patch length, different look-back windows and prediction lengths.). We also provide codes for the baseline models.
 
 ### Self-supervised Learning
 
@@ -357,23 +344,5 @@ https://github.com/ts-kim/RevIN
 
 https://github.com/timeseriesAI/tsai
 
-## Contact
 
-If you have any questions or concerns, please contact us: ynie@princeton.edu or nnguyen@us.ibm.com or submit an issue
-
-## Citation
-
-If you find this repo useful in your research, please consider citing our paper as follows:
-
-```
-@inproceedings{Yuqietal-2023-PatchTST,
-  title     = {A Time Series is Worth 64 Words: Long-term Forecasting with Transformers},
-  author    = {Nie, Yuqi and
-               H. Nguyen, Nam and
-               Sinthong, Phanwadee and 
-               Kalagnanam, Jayant},
-  booktitle = {International Conference on Learning Representations},
-  year      = {2023}
-}
-```
 
