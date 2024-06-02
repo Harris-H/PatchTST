@@ -26,7 +26,7 @@
 
 ![model](https://raw.githubusercontent.com/Harris-H/PatchTST/main/pic/model.png)
 
-## 
+
 
 ## 3 PyTorch训练脚本迁移至MindSpore框架
 
@@ -246,13 +246,15 @@ pretraining completed
 
 ### 5.2 监督学习
 
+#### 5.2.1 weather数据集
+
 这里以监督学习为例，利用`PatchTST/42`获取天气数据集的多变量预报结果。
 
 ```sh
 sh ./scripts/PatchTST/weather.sh
 ```
 
-#### a) 预测长度为96时
+##### a) 预测长度为96时
 
 当预测长度`pre_len`参数为96时，训练日志如下：
 
@@ -319,7 +321,7 @@ mse:0.15200510621070862, mae:0.20024904608726501, rse:0.513616681098938
 
 ---
 
-#### b) 预测长度为192时
+##### b) 预测长度为192时
 
 当修改预测长度为：当预测长度`pre_len`参数为192时，训练日志如下：
 
@@ -399,7 +401,65 @@ mse:0.1951362043619156, mae:0.2412061244249344, rse:0.5811452269554138
 
 ![image-20240531160648084](https://raw.githubusercontent.com/Harris-H/PatchTST/main/pic/192_test_result.png)
 
+----
 
+#### 5.2.2 ETTH1数据集
 
+我们同时利用`PatchTST/42`获取关于电力系统数据集的多变量预报结果。
 
+```sh
+sh ./scripts/PatchTST/etth1.sh
+```
+
+==预测长度为96时==
+
+当预测长度`pre_len`参数为96时，训练日志如下：
+
+```sh
+Args in experiment:
+Namespace(activation='gelu', affine=0, batch_size=128, c_out=7, checkpoints='./checkpoints/', d_ff=128, d_layers=1, d_model=16, data='ETTh1', data_path='ETTh1.csv', dec_in=7, decomposition=0, des='Exp', devices='0,1,2,3', distil=True, do_predict=False, dropout=0.3, e_layers=3, embed='timeF', embed_type=0, enc_in=7, factor=1, fc_dropout=0.3, features='M', freq='h', gpu=0, head_dropout=0.0, individual=0, is_training=1, itr=1, kernel_size=25, label_len=48, learning_rate=0.0001, loss='mse', lradj='type3', model='PatchTST', model_id='336_96', moving_avg=25, n_heads=4, num_workers=10, output_attention=False, padding_patch='end', patch_len=16, patience=100, pct_start=0.3, pred_len=96, random_seed=2021, revin=1, root_path='./dataset/', seq_len=336, stride=8, subtract_last=0, target='OT', test_flop=False, train_epochs=100, use_amp=False, use_gpu=True, use_multi_gpu=False)
+Use GPU: cuda:0
+>>>>>>>start training : 336_96_PatchTST_ETTh1_ftM_sl336_ll48_pl96_dm16_nh4_el3_dl1_df128_fc1_ebtimeF_dtTrue_Exp_0>>>>>>>>>>>>>>>>>>>>>>>>>>
+train 8209
+val 2785
+test 2785
+Epoch: 1 cost time: 2.025261878967285
+Epoch: 1, Steps: 64 | Train Loss: 0.7408717 Vali Loss: 1.4723629 Test Loss: 0.8135457
+Validation loss decreased (inf --> 1.472363).  Saving model ...
+Updating learning rate to 0.0001
+Epoch: 2 cost time: 1.8104093074798584
+Epoch: 2, Steps: 64 | Train Loss: 0.5737272 Vali Loss: 0.8931192 Test Loss: 0.4753346
+Validation loss decreased (1.472363 --> 0.893119).  Saving model ...
+Updating learning rate to 0.0001
+...................................................
+...................................................
+Updating learning rate to 5.5533286725436726e-09
+Epoch: 97 cost time: 1.821709394454956
+Epoch: 97, Steps: 64 | Train Loss: 0.3581489 Vali Loss: 0.6789832 Test Loss: 0.3749545
+EarlyStopping counter: 47 out of 100
+Updating learning rate to 4.997995805289306e-09
+Epoch: 98 cost time: 1.7939820289611816
+Epoch: 98, Steps: 64 | Train Loss: 0.3582450 Vali Loss: 0.6800703 Test Loss: 0.3748903
+EarlyStopping counter: 48 out of 100
+Updating learning rate to 4.498196224760375e-09
+Epoch: 99 cost time: 1.8079988956451416
+Epoch: 99, Steps: 64 | Train Loss: 0.3588102 Vali Loss: 0.6783884 Test Loss: 0.3749496
+EarlyStopping counter: 49 out of 100
+Updating learning rate to 4.048376602284338e-09
+Epoch: 100 cost time: 1.803722858428955
+Epoch: 100, Steps: 64 | Train Loss: 0.3586274 Vali Loss: 0.6786212 Test Loss: 0.3748749
+EarlyStopping counter: 50 out of 100
+Updating learning rate to 3.643538942055904e-09
+>>>>>>>testing : 336_96_PatchTST_ETTh1_ftM_sl336_ll48_pl96_dm16_nh4_el3_dl1_df128_fc1_ebtimeF_dtTrue_Exp_0<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+test 2785
+mse:0.37505924701690674, mae:0.39942532777786255, rse:0.5807181000709534
+```
+
+此外我们还针对`pre_len`为192、336、720进行了训练，这里不再详述。
+
+---
+
+针对`ETTH1`数据集，分别针对`pre_len`为96、192、336、720测试结果如下：
+
+![etth1_test_result](https://raw.githubusercontent.com/Harris-H/PatchTST/main/pic/etth1_test_result.jpeg)
 
