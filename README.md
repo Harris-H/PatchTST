@@ -96,7 +96,7 @@ from mindtorch.torchvision import datasets, transforms
 
 ---
 
-### 1.1 监督学习
+### 2.4 监督学习
 
 - **安装依赖包：**
 
@@ -118,6 +118,24 @@ pip install -r requirements.txt
 
 ```sh
 sh ./scripts/PatchTST/weather.sh
+```
+
+### 2.5 自监督学习
+
+- 与2.4前两个步骤一样，**安装依赖包**并**下载数据集**。
+
+- 预训练：scirpt patchtst_pretrain.py是训练 PatchTST/64。要在 ettm1 上使用单个 GPU 运行代码，只需运行以下命令。
+
+```sh
+python patchtst_pretrain.py --dset ettm1 --mask_ratio 0.4
+```
+
+模型将保存到下游任务的 `saved_model` 文件夹中。在`patchtst_pretrain.py`脚本中还可以设置其他几个参数。
+
+- 微调：脚本patchtst_finetune.py用于微调步骤。可以对整个网络进行linear_probing或微调。
+
+```sh
+python patchtst_finetune.py --dset ettm1 --pretrained_model <model_name>
 ```
 
 ## 3 实验结果
@@ -146,9 +164,59 @@ sh ./scripts/PatchTST/weather.sh
 
 ![varying_L](https://raw.githubusercontent.com/Harris-H/PatchTST/main/pic/varying_L.png)
 
-----
+## 4 训练结果
 
-## 4 测试结果
+### 4.1 自监督学习
+
+预训练参数如下所示，其他默认。
+
+| 参数名称       | 值    |
+| -------------- | ----- |
+| dset_pretrain  | ettm1 |
+| context_points | 512   |
+| target_points  | 96    |
+| batch_size     | 64    |
+| patch_len      | 12    |
+| stride         | 12    |
+| n_layers       | 3     |
+| n_heads        | 16    |
+| d_model        | 128   |
+| mask_ratio     | 0.4   |
+
+训练日志：
+
+```sh
+args: Namespace(batch_size=64, context_points=512, d_ff=512, d_model=128, dropout=0.2, dset_pretrain='ettm1', features='M', head_dropout=0.2, lr=0.0001, mask_ratio=0.4, model_type='based_model', n_epochs_pretrain=10, n_heads=16, n_layers=3, num_workers=0, patch_len=12, pretrained_model_id=1, revin=1, scaler='standard', stride=12, target_points=96)
+number of patches: 42
+number of model params 603404
+suggested_lr 0.000298364724028334
+number of patches: 42
+number of model params 603404
+          epoch     train_loss     valid_loss           time
+Better model found at epoch 0 with valid_loss value: 0.9633879239606127.
+              0       0.987340       0.963388          00:23
+              1       0.969473       0.964801          00:23
+Better model found at epoch 2 with valid_loss value: 0.7999917088347921.
+              2       0.942842       0.799992          00:23
+Better model found at epoch 3 with valid_loss value: 0.4354643907275711.
+              3       0.682230       0.435464          00:23
+Better model found at epoch 4 with valid_loss value: 0.3089567876435996.
+              4       0.509751       0.308957          00:23
+Better model found at epoch 5 with valid_loss value: 0.2819502188183807.
+              5       0.403407       0.281950          00:23
+Better model found at epoch 6 with valid_loss value: 0.2734085450287199.
+              6       0.368505       0.273409          00:23
+Better model found at epoch 7 with valid_loss value: 0.26829308841630195.
+              7       0.354000       0.268293          00:23
+Better model found at epoch 8 with valid_loss value: 0.2661328766069475.
+              8       0.347698       0.266133          00:23
+Better model found at epoch 9 with valid_loss value: 0.26483733930525166.
+              9       0.344991       0.264837          00:23
+pretraining completed
+
+```
+
+
 
 这里以监督学习为例，利用`PatchTST/42`获取天气数据集的多变量预报结果。
 
@@ -156,7 +224,7 @@ sh ./scripts/PatchTST/weather.sh
 sh ./scripts/PatchTST/weather.sh
 ```
 
-### 4.1 预测长度为96时
+### 4.2 预测长度为96时
 
 当预测长度`pre_len`参数为96时，训练日志如下：
 
@@ -223,7 +291,7 @@ mse:0.15200510621070862, mae:0.20024904608726501, rse:0.513616681098938
 
 ---
 
-### 4.2 预测长度为192时
+### 4.3 预测长度为192时
 
 当修改预测长度为：当预测长度`pre_len`参数为192时，训练日志如下：
 
@@ -303,46 +371,7 @@ mse:0.1951362043619156, mae:0.2412061244249344, rse:0.5811452269554138
 
 ![image-20240531160648084](https://raw.githubusercontent.com/Harris-H/PatchTST/main/pic/192_test_result.png)
 
-----
 
-
-
-
-
-
-
-### Self-supervised Learning
-
-1. Follow the first 2 steps above
-
-2. Pre-training: The scirpt patchtst_pretrain.py is to train the PatchTST/64. To run the code with a single GPU on ettm1, just run the following command
-```
-python patchtst_pretrain.py --dset ettm1 --mask_ratio 0.4
-```
-The model will be saved to the saved_model folder for the downstream tasks. There are several other parameters can be set in the patchtst_pretrain.py script.
-
- 3. Fine-tuning: The script patchtst_finetune.py is for fine-tuning step. Either linear_probing or fine-tune the entire network can be applied.
-```
-python patchtst_finetune.py --dset ettm1 --pretrained_model <model_name>
-```
-
-## Acknowledgement
-
-We appreciate the following github repo very much for the valuable code base and datasets:
-
-https://github.com/cure-lab/LTSF-Linear
-
-https://github.com/zhouhaoyi/Informer2020
-
-https://github.com/thuml/Autoformer
-
-https://github.com/MAZiqing/FEDformer
-
-https://github.com/alipay/Pyraformer
-
-https://github.com/ts-kim/RevIN
-
-https://github.com/timeseriesAI/tsai
 
 
 

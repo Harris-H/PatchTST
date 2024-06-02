@@ -19,7 +19,7 @@ def get_dls(params):
     if not hasattr(params,'use_time_features'): params.use_time_features = False
 
     if params.dset == 'ettm1':
-        root_path = '/data/datasets/public/ETDataset/ETT-small/'
+        root_path = './dataset/'
         size = [params.context_points, 0, params.target_points]
         dls = DataLoaders(
                 datasetCls=Dataset_ETT_minute,
@@ -37,7 +37,7 @@ def get_dls(params):
 
 
     elif params.dset == 'ettm2':
-        root_path = '/data/datasets/public/ETDataset/ETT-small/'
+        root_path = './dataset/'
         size = [params.context_points, 0, params.target_points]
         dls = DataLoaders(
                 datasetCls=Dataset_ETT_minute,
@@ -54,7 +54,7 @@ def get_dls(params):
                 )
 
     elif params.dset == 'etth1':
-        root_path = '/data/datasets/public/ETDataset/ETT-small/'
+        root_path = './dataset/'
         size = [params.context_points, 0, params.target_points]
         dls = DataLoaders(
                 datasetCls=Dataset_ETT_hour,
@@ -72,7 +72,7 @@ def get_dls(params):
 
 
     elif params.dset == 'etth2':
-        root_path = '/data/datasets/public/ETDataset/ETT-small/'
+        root_path = './dataset/'
         size = [params.context_points, 0, params.target_points]
         dls = DataLoaders(
                 datasetCls=Dataset_ETT_hour,
@@ -90,7 +90,7 @@ def get_dls(params):
     
 
     elif params.dset == 'electricity':
-        root_path = '/data/datasets/public/electricity/'
+        root_path = './dataset/'
         size = [params.context_points, 0, params.target_points]
         dls = DataLoaders(
                 datasetCls=Dataset_Custom,
@@ -107,7 +107,7 @@ def get_dls(params):
                 )
 
     elif params.dset == 'traffic':
-        root_path = '/data/datasets/public/traffic/'
+        root_path = './dataset/'
         size = [params.context_points, 0, params.target_points]
         dls = DataLoaders(
                 datasetCls=Dataset_Custom,
@@ -124,7 +124,7 @@ def get_dls(params):
                 )
     
     elif params.dset == 'weather':
-        root_path = '/data/datasets/public/weather/'
+        root_path = './dataset/'
         size = [params.context_points, 0, params.target_points]
         dls = DataLoaders(
                 datasetCls=Dataset_Custom,
@@ -141,7 +141,7 @@ def get_dls(params):
                 )
 
     elif params.dset == 'illness':
-        root_path = '/data/datasets/public/illness/'
+        root_path = './dataset/'
         size = [params.context_points, 0, params.target_points]
         dls = DataLoaders(
                 datasetCls=Dataset_Custom,
@@ -158,7 +158,7 @@ def get_dls(params):
                 )
 
     elif params.dset == 'exchange':
-        root_path = '/data/datasets/public/exchange_rate/'
+        root_path = './dataset/'
         size = [params.context_points, 0, params.target_points]
         dls = DataLoaders(
                 datasetCls=Dataset_Custom,
