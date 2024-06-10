@@ -45,6 +45,68 @@
 
 ### 3.1 MindSpore安装
 
+版本：`2.3.0-rc2`
+
+硬件平台：`Ascend`
+
+操作系统：`Linux-x86_64`
+
+Python版本：`Python 3.9`
+
+安装方式：
+
+- `Pip`
+
+```sh
+pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.3.0rc2/MindSpore/unified/x86_64/mindspore-2.3.0rc2-cp39-cp39-linux_x86_64.whl --trusted-host ms-release.obs.cn-north-4.myhuaweicloud.com -i https://pypi.tuna.tsinghua.edu.cn/simple
+```
+
+- `conda`
+
+```sh
+conda install mindspore=2.3.0rc2 -c mindspore -c conda-forge
+```
+
+**验证是否安装成功：**
+
+```sh
+python -c "import mindspore;mindspore.set_context(device_target='Ascend');mindspore.run_check()"
+```
+
+如果输出：
+
+```sh
+MindSpore version: 版本号
+The result of multiplication calculation is correct, MindSpore has been installed on platform [Ascend] successfully!
+```
+
+说明MindSpore安装成功了。
+
+**升级MindSpore版本**
+
+从MindSpore 1.x升级到MindSpore 2.x版本时，需要先手动卸载旧版本：
+
+```sh
+conda remove mindspore-ascend
+
+# 然后安装新版本：
+conda install mindspore -c mindspore -c conda-forge
+
+#从MindSpore 2.x版本升级时，执行如下命令：
+conda update mindspore -c mindspore -c conda-forge
+
+# 注意：升级MindSpore Ascend版本conda安装包后请重新安装昇腾AI处理器配套软件包提供的whl包。首先卸载旧版本：
+pip uninstall te topi hccl -y
+
+# 然后重新安装：
+pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/te-*-py3-none-any.whl
+pip install /usr/local/Ascend/ascend-toolkit/latest/lib64/hccl-*-py3-none-any.whl
+```
+
+其他可参考：[MindSpore官网](https://www.mindspore.cn/install)
+
+---
+
 ### 3.2 MindTorch安装
 
 - 通过pip安装
