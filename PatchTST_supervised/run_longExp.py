@@ -1,3 +1,4 @@
+from mindtorch.tools import mstorch_enable
 import argparse
 import os
 import torch
