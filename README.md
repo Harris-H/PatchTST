@@ -525,3 +525,22 @@ mse:0.37505924701690674, mae:0.39942532777786255, rse:0.5807181000709534
 
 ![etth1_test_result](https://raw.githubusercontent.com/Harris-H/PatchTST/main/pic/etth1_test_result.jpeg)
 
+## 6 参考文献
+
+[1] [PatchTST官方实现](https://github.com/yuqinie98/PatchTST)
+
+[2] [论文：A Time Series is Worth 64 Words: Long-term Forecasting with Transformers](https://arxiv.org/abs/2211.14730)
+
+[3] https://github.com/cure-lab/LTSF-Linear
+
+[4] https://github.com/zhouhaoyi/Informer2020
+
+[5] https://github.com/thuml/Autoformer
+
+[6] https://github.com/MAZiqing/FEDformer
+
+[7] https://github.com/alipay/Pyraformer
+
+[8] https://github.com/ts-kim/RevIN
+
+[9] https://github.com/timeseriesAI/tsai
