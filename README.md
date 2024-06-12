@@ -24,9 +24,7 @@
 
 🌟 **通道独立性**：每个通道都包含一个单变量时间序列，该时间序列在所有序列中共享相同的嵌入和 Transformer 权重。
 
-![model](https://raw.githubusercontent.com/Harris-H/PatchTST/main/pic/model.png)
-
-
+![model.png](https://s2.loli.net/2024/06/12/ycX3AEgQfr4xFwq.png)
 
 ## 3 PyTorch训练脚本迁移至MindSpore框架
 
@@ -36,7 +34,7 @@
 
 >目的是在不改变原有PyTorch用户的使用习惯情况下，使得PyTorch代码能在昇腾上获得高效性能。
 
-![image-20240531150554354](https://raw.githubusercontent.com/Harris-H/PatchTST/main/pic/mindtorch.png)
+![mindtorch](https://s21.ax1x.com/2024/06/12/pkaGvgU.png)
 
 - **PyTorch接口支持**： MindTorch目前支持大部分PyTorch常用接口适配。用户接口使用方式不变，基于MindSpore动态图或静态图模式下执行在昇腾算力平台上。可以在[torch接口支持列表](SupportedList.md)中查看接口支持情况。
 - **TorchVision接口支持**： MindTorch TorchVision是迁移自PyTorch官方实现的计算机视觉工具库，延用PyTorch官方API设计与使用习惯，内部计算调用MindSpore算子，实现与torchvision原始库同等功能。可以在[TorchVision接口支持列表](TorchVision_SupportedList.md)中查看接口支持情况。
@@ -196,7 +194,7 @@ pip install -r requirements.txt
 
 可以从[Autoformer](https://drive.google.com/drive/folders/1ZOYpTUa82_jCcxIdTmyr0LXQfvaM9vIy)下载所有用到的数据集。在项目根目录下创建文件夹：`./dataset`,并将所有 csv 文件放在该目录中。
 
-![image-20240531152103148](https://raw.githubusercontent.com/Harris-H/PatchTST/main/pic/dataset.png)
+![dataset](https://s21.ax1x.com/2024/06/12/pkaGj3T.png)
 
 如上图所示，下载完成后得到的数据集。
 
@@ -232,25 +230,25 @@ python patchtst_finetune.py --dset ettm1 --pretrained_model <model_name>
 
 与基于 Transformer 的型号所能提供的最佳结果相比，PatchTST/64 实现了 MSE 总体减少 **21.0%** 和 MAE 减少 **16.7%**，而 PatchTST/42 实现了 MSE 总体减少 **20.2%** 和 MAE 减少 **16.4%**。它的性能也优于其他非基于 Transformer 的模型，如 DLinear。
 
-![table3](https://raw.githubusercontent.com/Harris-H/PatchTST/main/pic/table3.png)
+![table3](https://s21.ax1x.com/2024/06/12/pkaJPER.png)
 
 ### 4.2 自我监督学习
 
 与其他监督和自监督模型进行了比较，自监督 PatchTST 能够优于所有基线。
 
-![table4](https://raw.githubusercontent.com/Harris-H/PatchTST/main/pic/table4.png)
+![table4](https://s21.ax1x.com/2024/06/12/pkaJ9b9.png)
 
-![table6](https://raw.githubusercontent.com/Harris-H/PatchTST/main/pic/table6.png)
+![table6](https://pic.imgdb.cn/item/6669b921d9c307b7e985152b.png)
 
 我们还测试了将预训练模型转移到下游任务的能力。
 
-![table5](https://raw.githubusercontent.com/Harris-H/PatchTST/main/pic/table5.png)
+![table5](https://s21.ax1x.com/2024/06/12/pkaJiU1.png)
 
 ### 4.3 长回溯窗口的效率
 
 随着回溯窗口的增加，PatchTST 会持续降低 MSE 分数，这证实了模型能够从更长的感受野中学习。
 
-![varying_L](https://raw.githubusercontent.com/Harris-H/PatchTST/main/pic/varying_L.png)
+![varying_L](https://pic.imgdb.cn/item/6669b952d9c307b7e98597d6.png)
 
 ## 5 训练结果
 
@@ -379,7 +377,7 @@ mse:0.15200510621070862, mae:0.20024904608726501, rse:0.513616681098938
 
 模型测试结果下，分别是0轮、20轮、40轮、60轮、80轮的结果：
 
-![test_result](https://raw.githubusercontent.com/Harris-H/PatchTST/main/pic/96_test_result.png)
+![96_test_result](https://s21.ax1x.com/2024/06/12/pkaGxvF.png)
 
 ---
 
@@ -461,7 +459,7 @@ mse:0.1951362043619156, mae:0.2412061244249344, rse:0.5811452269554138
 
 模型测试结果下，分别是0轮、20轮、40轮、60轮的结果：
 
-![image-20240531160648084](https://raw.githubusercontent.com/Harris-H/PatchTST/main/pic/192_test_result.png)
+![192_test_result](https://s21.ax1x.com/2024/06/12/pkaJSu4.png)
 
 ----
 
@@ -523,7 +521,7 @@ mse:0.37505924701690674, mae:0.39942532777786255, rse:0.5807181000709534
 
 针对`ETTH1`数据集，分别针对`pre_len`为96、192、336、720测试结果如下：
 
-![etth1_test_result](https://raw.githubusercontent.com/Harris-H/PatchTST/main/pic/etth1_test_result.jpeg)
+![etth1_test_result](https://s21.ax1x.com/2024/06/12/pkaJpDJ.jpg)
 
 ## 6 参考文献
 
